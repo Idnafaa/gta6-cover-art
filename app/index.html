@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neon Coast Poster Studio: turn your photos into sunset-crime-epic cover art</title>
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAl0lEQVR4nO1XQRKAIAg0/9WzekXP6mF26pABggo4E3tNdldaR0np79h6isp+FpTwOkSc7MWU6IiZrCXOrSMd9gqDQkg30A7MFKf4QAOzxSleVgY08TGgtXuMP1MfLUys9wvcDFi1v9ZbpwNhIOCF1xVpeRSf6zky4A7wmaSZhfppFhlwB2swGclEazhhZUA6bknq3GdDd9xOAz/kAr4mAQAAAABJRU5ErkJggg==">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark">NEON COAST</span><span class="brand-sub">Poster Studio</span></div>
+  <ol class="steps" aria-label="Three steps">
+    <li><b>1</b> Add photos</li>
+    <li><b>2</b> Pick layout, grade, caption</li>
+    <li><b>3</b> Export PNG</li>
+  </ol>
+  <span class="privacy">Offline. Your photos never leave this device.</span>
+</header>
+<main class="studio">
+  <aside class="sidebar sidebar-left">
+    <section class="block">
+      <h2>Photos</h2>
+      <label class="dropzone" for="photo-input" id="drop-zone">
+        <strong>Drop photos here</strong><span>or click to choose (several at once is fine)</span>
+      </label>
+      <input id="photo-input" type="file" accept="image/*" multiple hidden>
+      <div id="photo-strip" class="thumbs" aria-label="Loaded photos"></div>
+      <button id="use-samples" type="button" class="ghost">Try the sample photos</button>
+    </section>
+    <section class="block">
+      <h2>Layout</h2>
+      <div id="template-list" class="chips grid-2" role="radiogroup" aria-label="Layout template"></div>
+      <label class="field inline">Border <input id="border-width" type="range" min="0.004" max="0.03" step="0.001" value="0.014"></label>
+    </section>
+    <section class="block">
+      <h2>Colour grade</h2>
+      <div id="grade-list" class="swatches" role="radiogroup" aria-label="Colour grade"></div>
+    </section>
+    <section class="block">
+      <h2>Lettering</h2>
+      <div id="lettering-list" class="chips grid-3" role="radiogroup" aria-label="Lettering style"></div>
+    </section>
+  </aside>
+
+  <section class="stage">
+    <div class="canvas-frame"><canvas id="poster-preview" width="1280" height="720" aria-label="Live poster preview"></canvas></div>
+    <p class="tip">Click a panel to select it, drag to move its photo, scroll or use the slider to zoom.</p>
+  </section>
+
+  <aside class="sidebar sidebar-right">
+    <section class="block">
+      <h2>Caption</h2>
+      <label class="field">Title <small>(new line or " / " stacks it)</small>
+        <textarea id="caption-input" rows="2" maxlength="60">Sunset Heist</textarea></label>
+      <label class="field">Tagline <input id="tagline-input" type="text" maxlength="40" value="one last score"></label>
+      <label class="field">Credit line <input id="credit-input" type="text" maxlength="60" value="Coming soon to Neon Coast"></label>
+    </section>
+    <section class="block">
+      <h2>Selected panel <span id="panel-label" class="muted"></span></h2>
+      <div id="panel-photo-choices" class="thumbs small" aria-label="Photo for this panel"></div>
+      <label class="field">Zoom <input id="panel-zoom" type="range" min="1" max="4" step="0.01" value="1"></label>
+      <div class="row">
+        <button id="panel-reset" type="button" class="ghost">Reset crop</button>
+        <button id="panel-mirror" type="button" class="ghost">Mirror</button>
+        <button id="shuffle-crops" type="button" class="ghost">Shuffle all</button>
+      </div>
+      <div class="row">
+        <button id="fill-one-photo" type="button" class="ghost">This photo everywhere</button>
+        <button id="spread-photos" type="button" class="ghost">Spread all photos</button>
+      </div>
+    </section>
+    <section class="block export">
+      <h2>Export</h2>
+      <div id="size-list" class="chips" role="radiogroup" aria-label="Post size"></div>
+      <button id="export-png" type="button" class="primary">Export PNG</button>
+      <button id="export-all" type="button" class="ghost">Export all 3 sizes</button>
+      <p id="status" class="status" role="status"></p>
+    </section>
+  </aside>
+</main>
+<script type="module" src="./src/studioApp.js"></script>
+</body>
+</html>

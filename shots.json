@@ -1,0 +1,27 @@
+{
+  "about": "The screenshot plan tools/capture-screenshots.mjs follows. Covers are the app's own exported PNGs, only scaled down and saved as JPEG under 256 KiB; the editor shot is the page with both sample photos loaded and a panel selected.",
+  "url": "http://localhost:8080/",
+  "photos": ["samples/pier.jpg", "samples/boulevard.jpg"],
+  "shots": [
+    {
+      "name": "1-cover-1920x1080.jpg", "kind": "export", "fit": { "w": 1280, "h": 720 },
+      "size": "landscape", "template": "heist-grid", "grade": "vice-sunset",
+      "caption": "Sunset Heist", "tagline": "one last score", "credit": "Coming soon to Neon Coast"
+    },
+    {
+      "name": "2-editor.jpg", "kind": "editor", "fit": { "w": 1280, "h": 800 }, "selectPanelAt": [0.6, 0.15],
+      "size": "landscape", "template": "heist-grid", "grade": "neon-night",
+      "caption": "Palm Coast Stories", "tagline": "one last score", "credit": "Coming soon to Neon Coast"
+    },
+    {
+      "name": "3-cover-1080x1350.jpg", "kind": "export", "fit": { "w": 1024, "h": 1280 },
+      "size": "portrait", "template": "heist-grid", "grade": "neon-night",
+      "caption": "Neon Coast / Nights", "tagline": "the city never sleeps", "credit": "A Palm Coast story"
+    },
+    {
+      "name": "4-cover-1080x1080.jpg", "kind": "export", "fit": { "w": 1024, "h": 1024 },
+      "size": "square", "template": "mosaic-nine", "grade": "comic-ink",
+      "caption": "Golden Mile", "tagline": "no way back", "credit": "Coming soon to Neon Coast"
+    }
+  ]
+}

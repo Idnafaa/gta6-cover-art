@@ -1,0 +1,76 @@
+/* Neon Coast Poster Studio: a dark editor in sunset colours, three columns (inputs, live preview, caption/export). */
+@font-face { font-family: "Coast Display"; src: url("./fonts/NotoSansDisplay-ExtraCondensedBlack.ttf") format("truetype"); font-weight: 400; font-style: normal; }
+@font-face { font-family: "Coast Display"; src: url("./fonts/NotoSansDisplay-ExtraCondensedBlackItalic.ttf") format("truetype"); font-weight: 400; font-style: italic; }
+@font-face { font-family: "Coast Serif"; src: url("./fonts/NotoSerifDisplay-BlackItalic.ttf") format("truetype"); font-weight: 400; font-style: italic; }
+
+:root {
+  --bg: #0d0618; --panel: #170c27; --panel-2: #21123a; --line: #35204f; --text: #f6ecff; --muted: #a993c4;
+  --pink: #ff3d8b; --orange: #ff9a3c; --cyan: #4df3ff;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: radial-gradient(1200px 500px at 70% -10%, #3a0f45 0%, transparent 60%), var(--bg);
+  color: var(--text); font: 13px/1.35 system-ui, "Segoe UI", sans-serif; display: flex; flex-direction: column;
+}
+body.dragging .dropzone { border-color: var(--cyan); background: #1d2f45; }
+
+.topbar { display: flex; align-items: center; gap: 22px; padding: 5px 16px; border-bottom: 1px solid var(--line); background: #10071d; }
+.brand { display: flex; align-items: baseline; gap: 8px; }
+.brand-mark {
+  font: italic 26px "Coast Display", sans-serif; letter-spacing: 1px;
+  background: linear-gradient(180deg, #fff4c2, #ff9a3c 55%, #ff3d8b); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.brand-sub { font: 16px "Coast Display", sans-serif; letter-spacing: 3px; color: var(--cyan); text-transform: uppercase; }
+.steps { display: flex; gap: 14px; margin: 0; padding: 0; list-style: none; color: var(--muted); }
+.steps b { display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--pink); color: #fff; font-size: 11px; margin-right: 4px; }
+.privacy { margin-left: auto; color: var(--muted); font-size: 12px; }
+
+.studio { flex: 1; display: grid; grid-template-columns: 226px minmax(0, 1fr) 226px; gap: 10px; padding: 10px; min-height: 0; }
+.sidebar { display: flex; flex-direction: column; gap: 8px; overflow-y: auto; min-height: 0; }
+.block { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 8px 9px; }
+.block h2 { margin: 0 0 6px; font: 15px "Coast Display", sans-serif; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); }
+.muted { color: var(--muted); font: 12px system-ui, sans-serif; letter-spacing: 0; text-transform: none; }
+
+.dropzone { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 9px 8px; border: 2px dashed var(--pink); border-radius: 8px; cursor: pointer; text-align: center; background: #1f0f2f; }
+.dropzone strong { font: 17px "Coast Display", sans-serif; letter-spacing: 1px; text-transform: uppercase; }
+.dropzone span { color: var(--muted); font-size: 11px; }
+
+.thumbs { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.thumbs:empty { display: none; }
+.thumbs button { padding: 0; border: 2px solid transparent; border-radius: 6px; background: none; cursor: pointer; line-height: 0; }
+.thumbs img { width: 46px; height: 46px; object-fit: cover; border-radius: 4px; }
+.thumbs.small img { width: 40px; height: 40px; }
+.thumbs button[aria-checked="true"] { border-color: var(--cyan); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips button, .ghost, .primary { font: inherit; color: var(--text); background: var(--panel-2); border: 1px solid var(--line); border-radius: 7px; padding: 5px 8px; cursor: pointer; }
+.chips button small { display: block; color: var(--muted); font-size: 10px; }
+.chips button[aria-checked="true"] { border-color: var(--pink); background: #3a1240; box-shadow: 0 0 0 1px var(--pink) inset; }
+.ghost:hover, .chips button:hover { border-color: var(--orange); }
+.swatches { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.swatches button { font: 600 11px system-ui, sans-serif; color: #fff; border: 2px solid transparent; border-radius: 7px; padding: 10px 6px 4px; cursor: pointer; text-shadow: 0 1px 2px #000; text-align: left; }
+.swatches button[aria-checked="true"] { border-color: #fff; }
+
+.field { display: block; margin-bottom: 6px; color: var(--muted); }
+.field small { color: #7f6a99; }
+.field textarea, .field input[type="text"] { display: block; width: 100%; margin-top: 3px; padding: 6px 8px; color: var(--text); background: #0f0719; border: 1px solid var(--line); border-radius: 6px; font: 600 14px system-ui, sans-serif; resize: vertical; }
+.field input[type="range"] { display: block; width: 100%; accent-color: var(--pink); }
+.row { display: flex; gap: 6px; margin-bottom: 6px; }
+.row button { flex: 1; font-size: 12px; padding: 5px 4px; }
+
+.stage { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 0; min-height: 0; }
+.canvas-frame { width: 100%; flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; }
+#poster-preview { max-width: 100%; max-height: calc(100vh - 110px); border-radius: 4px; box-shadow: 0 10px 40px #000a, 0 0 0 1px #ffffff1a; cursor: grab; touch-action: none; }
+#poster-preview.dragging { cursor: grabbing; }
+.tip { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
+
+.export .chips { margin-bottom: 8px; }
+.primary { width: 100%; padding: 8px; font: 20px "Coast Display", sans-serif; letter-spacing: 2px; text-transform: uppercase; border: 0; background: linear-gradient(90deg, var(--pink), var(--orange)); color: #1a0420; margin-bottom: 6px; }
+.export .ghost { width: 100%; }
+.status { min-height: 16px; margin: 6px 0 0; color: var(--cyan); font-size: 12px; word-break: break-all; }
+.chips.grid-2 { display: grid; grid-template-columns: 1fr 1fr; }
+.chips.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+.chips.grid-3 button { font-size: 11px; padding: 5px 3px; }
+.field.inline { display: flex; align-items: center; gap: 8px; margin: 8px 0 0; }
+.field.inline input { flex: 1; }
